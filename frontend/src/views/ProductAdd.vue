@@ -290,7 +290,13 @@ export default {
           product_width: this.formData['selectWidth'],
           product_length: this.formData['selectLength']
       }
-      this.$store.dispatch('addProduct', parameterBody)
+      this.$store.dispatch('addProduct', parameterBody)  
+        .then(() => {
+          this.$router.push({ name: 'product-list'})
+        })
+        .catch(() => {
+          this.$router.go(0)
+        })
     }
   }
 }

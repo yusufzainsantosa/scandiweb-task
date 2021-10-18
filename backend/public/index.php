@@ -2,8 +2,10 @@
 require '../vendor/autoload.php';
 
 use Src\Config\Database;
+use Src\Config\Cors;
 use Src\Request\Request;
 
+header("Cache-Control: no-cache, must-revalidate");
 header("Access-Control-Allow-Origin: http://localhost:8081");   
 header("Content-Type: application/json; charset=UTF-8");    
 header("Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS");    
@@ -12,6 +14,8 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->safeload();
+$setCors = new Cors();
+$setCors->cors();
 $database = new Database();
 $dbConn = $database->getConnection();
 

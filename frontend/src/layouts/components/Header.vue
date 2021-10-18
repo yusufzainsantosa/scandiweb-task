@@ -65,8 +65,14 @@ export default {
     goToProductList () {
       this.$router.push({ name: 'product-list'})
     },
+    refreshData () {
+      this.$store.dispatch('fetchAllProduct')
+    },
     deleteData() {
       this.$store.dispatch('deleteProduct', this.deleteId.join(","))      
+        .then(() => {
+          this.refreshData()
+        })
     }
   }
 }
