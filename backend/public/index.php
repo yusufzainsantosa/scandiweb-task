@@ -9,6 +9,11 @@ require __DIR__ . '/../src/config/cors.php';
 require __DIR__ . '/../src/config/database.php';
 require __DIR__ . '/../src/request/request.php';
 
+if ($uri[1] !== 'api' || count($uri) !== 2) {
+  header("HTTP/1.1 404 Not Found");
+  exit();
+}
+
 $setCors = new Cors();
 $setCors->cors();
 
@@ -21,20 +26,8 @@ $dbConn = $database->getConnection();
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode( '/', $uri );
 
-if ($uri[1] === 'test') {
-  header("HTTP/1.1 200 OK");
-  echo ('Connection Success');
-  exit();
-} else {
-  if ($uri[1] !== 'api' || count($uri) !== 2) {
-    header("HTTP/1.1 404 Not Found");
-    exit();
-  }
+$requestMethod = $_SERVER["REQUEST_METHOD"];
 
-  $requestMethod = $_SERVER["REQUEST_METHOD"];
-  
-  // pass the request method and post ID to the Post and process the HTTP request:
-  $controller = new Request($dbConn, $requestMethod);
-  $controller->processRequest();
-}
-
+// pass the request method and post ID to the Post and process the HTTP request:
+$controller = new Request($dbConn, $requestMethod);
+$controller->processRequest();
