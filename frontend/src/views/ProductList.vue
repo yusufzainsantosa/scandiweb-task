@@ -24,7 +24,7 @@
               <br>
               {{ value.product_price }} $
               <br>
-              Size: {{ measure(value) }}
+              {{ unit[value.product_type].sizeName }}: {{ measure(value) }}
             </p>
           </div>
         </div>
@@ -41,14 +41,17 @@ export default {
       unit: {
         DVD: {
           unit: ' MB',
+          sizeName: 'Size',
           data: ['product_size']
         },
         Book: {
           unit: 'KG',
+          sizeName: 'Weight',
           data: ['product_weight']
         },
         Furniture: {
           unit: '',
+          sizeName: 'Dimension',
           data: [
             'product_height',
             'product_width',
