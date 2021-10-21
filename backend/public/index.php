@@ -5,6 +5,10 @@ use Src\Config\Database;
 use Src\Config\Cors;
 use Src\Request\Request;
 
+require __DIR__ . '/../src/config/cors.php';
+require __DIR__ . '/../src/config/database.php';
+require __DIR__ . '/../src/request/request.php';
+
 $setCors = new Cors();
 $setCors->cors();
 

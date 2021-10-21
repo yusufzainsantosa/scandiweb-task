@@ -2,6 +2,7 @@
 namespace Src\Request;
 
 use Src\Objects\Product;
+require __DIR__ . '/../objects/product.php';
 
 class Request{
   private $db;
