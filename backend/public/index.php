@@ -9,6 +9,9 @@ require __DIR__ . '/../src/config/cors.php';
 require __DIR__ . '/../src/config/database.php';
 require __DIR__ . '/../src/request/request.php';
 
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri = explode( '/', $uri );
+
 if ($uri[1] !== 'api' || count($uri) !== 2) {
   header("HTTP/1.1 404 Not Found");
   exit();
@@ -22,9 +25,6 @@ $dotenv->safeload();
 
 $database = new Database();
 $dbConn = $database->getConnection();
-
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = explode( '/', $uri );
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
