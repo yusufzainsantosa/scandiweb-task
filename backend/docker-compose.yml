@@ -8,3 +8,5 @@ services:
     command: php -S 0.0.0.0:8000 -t public
     ports:
       - "8000:8000"
+    volumes:
+      - ./docker-php-ext-sodium.ini:/usr/local/etc/php/conf.d/docker-php-ext-sodium.ini
