@@ -120,8 +120,12 @@ class Product{
         $params = '';
         foreach($input as $key => $val) {
             if ($key != 'id') {
-                $params .= "$key=:$key";
+                $params .= "$key=:$key, ";
             }
+        }
+        
+        if (count($input) >= 2) {
+            $params = substr($params, 0, -2);
         }
 
         $query = "UPDATE
