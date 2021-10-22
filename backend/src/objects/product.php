@@ -108,6 +108,41 @@ class Product{
         return $response;        
     }
 
+    // create product
+    public function update(){   
+        $input = (array) json_decode(file_get_contents('php://input'), TRUE);
+        if (! isset($input['id'])) {
+            $response['status_code_header'] = 'HTTP/1.1 400 Bad Request';
+            $response['body'] = json_encode(array('message' => 'Please input the id.'));
+            return $response; 
+        }
+
+        $params = '';
+        foreach($input as $key => $val) {
+            if ($key != 'id') {
+                $params .= "$key=:$key";
+            }
+        }
+
+        $query = "UPDATE
+                    " . $this->table_name . "
+                SET
+                    $params
+                WHERE
+                    id=:id;";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute($input);
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }
+
+        $response['status_code_header'] = 'HTTP/1.1 201 Created';
+        $response['body'] = json_encode(array('message' => 'Updated successfully.'));
+        return $response;               
+    }
+
     public function delete() {
         if (isset($_GET['id'])) {            
             $ids = preg_replace('/\s/', '', $_GET['id']);

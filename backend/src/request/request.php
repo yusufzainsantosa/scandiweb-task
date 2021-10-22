@@ -25,6 +25,10 @@ class Request{
         $product =  new Product($this->db, $this->requestMethod);
         $response = $product->create();
         break;
+      case 'PUT':
+        $product =  new Product($this->db, $this->requestMethod);
+        $response = $product->update();
+        break;
       case 'DELETE':
         $product =  new Product($this->db, $this->requestMethod);
         $response = $product->delete();
