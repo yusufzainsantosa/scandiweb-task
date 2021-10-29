@@ -2,8 +2,7 @@
   <div class="container">
     <div class="d-flex flex-wrap">
       <div
-        class="card m-2 flex-fill"
-        style="max-width: 250px; min-width: 230px"
+        class="card m-2 product-card"
         v-for="(value, index) in allProduct"
         :key="index"
       >
@@ -88,5 +87,9 @@ export default {
 </script>
 
 <style lang="scss">
-
+.product-card {
+  max-width: 250px;
+  min-width: 230px;
+  flex: 1 1 0px!important;
+}
 </style>
